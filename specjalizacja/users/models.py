@@ -1,7 +1,7 @@
 import uuid
 
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField, UUIDField
+from django.db.models import CharField, ImageField, TextField, UUIDField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -13,10 +13,13 @@ class User(AbstractUser):
     check forms.SignupForm and forms.SocialSignupForms accordingly.
     """
 
-    # id = UUIDField(primary_key=True, default=uuid.uuid4(), editable=False)
-    id = UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     #: First and last name do not cover name patterns around the globe
     name = CharField(_("Name of User"), blank=True, max_length=255)
+    quote = TextField(_("Users bio"), blank=True)
+    profile_picture = ImageField(
+        _("Profile picture"), blank=True, upload_to="profile_pictures/"
+    )
     first_name = None  # type: ignore
     last_name = None  # type: ignore
 
