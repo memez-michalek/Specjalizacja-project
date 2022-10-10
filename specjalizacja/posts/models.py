@@ -18,10 +18,8 @@ class Post(models.Model):
     description = models.TextField(
         _("post description"), max_length=1024, blank=True, null=True
     )
-    images = models.ForeignKey(
-        Image, related_name="image_detail", on_delete=models.CASCADE
-    )
-    user = models.ForeignKey(User, related_name="post_user", on_delete=models.CASCADE)
+    images = models.ForeignKey(Image, related_name="images", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
     # created = models.DateTimeField(_("created"), editable=False)
     # community = models.ManyToManyField(Community, related_name='post-community')
 
@@ -32,6 +30,5 @@ class Post(models.Model):
     #    if not self.id:
     #        self.created = timezone.now()
     #    return super().save(*args, **kwargs)
-
     def get_absolute_url(self):
-        return reverse("post-details", kwargs={"id", self.id})
+        return reverse("api:post-detail", kwargs={"id", self.id})

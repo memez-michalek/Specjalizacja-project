@@ -14,7 +14,7 @@ class Image(models.Model):
     image = models.ImageField(_("image"), blank=True, upload_to="images/")
 
     def get_absolute_url(self):
-        return reverse("images:image_detail", kwargs={"id": self.id})
+        return reverse("api:image-detail", kwargs={"id": self.id})
 
     def __str__(self):
         return str(self.id)
