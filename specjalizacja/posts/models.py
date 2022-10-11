@@ -2,7 +2,7 @@ import uuid
 
 from django.db import models
 from django.urls import reverse
-# from django.utils import timezone
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 # from specjalizacja.communities.models import Community
@@ -20,15 +20,17 @@ class Post(models.Model):
     )
     images = models.ForeignKey(Image, related_name="images", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
-    # created = models.DateTimeField(_("created"), editable=False)
     # community = models.ManyToManyField(Community, related_name='post-community')
+    created = models.DateTimeField(editable=False, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.title:
+            self.created = timezone.now()
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
-    # def save(self, *args, **kwargs):
-    #    if not self.id:
-    #        self.created = timezone.now()
-    #    return super().save(*args, **kwargs)
     def get_absolute_url(self):
         return reverse("api:post-detail", kwargs={"id", self.id})
