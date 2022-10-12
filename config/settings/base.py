@@ -83,6 +83,7 @@ LOCAL_APPS = [
     "specjalizacja.images",
     "specjalizacja.posts",
     "specjalizacja.comments",
+    "specjalizacja.communities"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

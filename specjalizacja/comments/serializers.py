@@ -1,9 +1,22 @@
 from rest_framework import serializers
 
+from specjalizacja.posts.models import Post
+from specjalizacja.users.models import User
+
+from .models import Comment
+
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(view_name="api:user-detail", lookup_field="id", read_only=True)
-    post = serializers.HyperlinkedRelatedField(view_name="api:post-detail", read_only=True)
+    user = serializers.HyperlinkedRelatedField(
+        view_name="api:user-detail",
+        lookup_field="id",
+        queryset=User.objects.all()
+        )
+    post = serializers.HyperlinkedRelatedField(
+        view_name="api:post-detail",
+        queryset=Post.objects.all()
+        )
 
     class Meta:
-        fields = ['user', 'post', 'text']
+        model = Comment
+        fields = ['user', 'post', 'text', 'created']

@@ -5,7 +5,10 @@ from django.utils.translation import gettext_lazy as _
 
 from specjalizacja.users.forms import UserAdminChangeForm, UserAdminCreationForm
 
+from .models import Friend
+
 User = get_user_model()
+admin.site.register(Friend)
 
 
 @admin.register(User)
@@ -14,7 +17,7 @@ class UserAdmin(auth_admin.UserAdmin):
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
     fieldsets = (
-        (None, {"fields": ("username", "password", "profile_picture", "quote")}),
+        (None, {"fields": ("username", "password", "profile_picture", "quote", "friends")}),
         (_("Personal info"), {"fields": ("name", "email")}),
         (
             _("Permissions"),

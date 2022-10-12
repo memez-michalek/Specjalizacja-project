@@ -11,19 +11,17 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('images', '0001_initial'),
-        ('communities', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name='Community',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('title', models.CharField(max_length=255, verbose_name='post title')),
-                ('description', models.TextField(blank=True, max_length=1024, null=True, verbose_name='post description')),
+                ('name', models.CharField(max_length=128, verbose_name='community name')),
+                ('bio', models.CharField(blank=True, max_length=1024, null=True, verbose_name='community bio')),
                 ('created', models.DateTimeField(blank=True, editable=False, null=True)),
-                ('community', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='communities.community')),
-                ('images', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='images.image')),
+                ('background_image', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='community_image', to='images.image')),
             ],
         ),
     ]

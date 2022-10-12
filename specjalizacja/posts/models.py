@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from specjalizacja.communities.models import Community
 # from specjalizacja.communities.models import Community
 from specjalizacja.images.models import Image
 from specjalizacja.users.models import User
@@ -18,10 +19,10 @@ class Post(models.Model):
     description = models.TextField(
         _("post description"), max_length=1024, blank=True, null=True
     )
-    images = models.ForeignKey(Image, related_name="images", on_delete=models.CASCADE)
-    user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
-    # community = models.ManyToManyField(Community, related_name='post-community')
+    images = models.ManyToManyField(Image, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(editable=False, blank=True, null=True)
+    community = models.ForeignKey(Community, null=True, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         if not self.title:
