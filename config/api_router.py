@@ -5,7 +5,7 @@ from specjalizacja.comments.views import CommentViewset
 from specjalizacja.communities.views import CommunityViewset
 from specjalizacja.images.views import ImageDetailViewset
 from specjalizacja.posts.views import PostViewset
-from specjalizacja.users.api.views import UserViewSet
+from specjalizacja.users.api.views import FriendViewset, UserViewSet
 
 if settings.DEBUG:
     router = DefaultRouter()
@@ -17,6 +17,7 @@ router.register("images", ImageDetailViewset)
 router.register("posts", PostViewset)
 router.register("comments", CommentViewset)
 router.register("community", CommunityViewset)
+router.register("friend", FriendViewset)
 
 app_name = "api"
 urlpatterns = router.urls

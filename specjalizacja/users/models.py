@@ -50,3 +50,14 @@ class Friend(models.Model):
 
     def get_absolute_url(self):
         return reverse("api:friend-detail", kwargs={"id": self.id})
+
+    def validate_unique(self):
+        if Friend.objects.filter("from_user" == self.from_user) and \
+           Friend.objects.filter("to_user" == self.to_user) or \
+           Friend.objects.filter("to_user" == self.from_user) and Friend.objects.filter("from_user" == self.to_user):
+
+            print("testing")
+
+    def save(self, *args, **kwargs):
+        super().validate_unique()
+        super().save(*args, **kwargs)
