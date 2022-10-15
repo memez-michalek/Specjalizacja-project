@@ -20,12 +20,14 @@ class FriendSerializer(serializers.HyperlinkedModelSerializer):
     to_user = serializers.HyperlinkedRelatedField(
         queryset=Friend.objects.all(),
         view_name="api:user-detail",
-        many=False
+        many=False,
+        lookup_field="id"
         )
     from_user = serializers.HyperlinkedRelatedField(
         queryset=Friend.objects.all(),
         view_name="api:user-detail",
-        many=False
+        many=False,
+        lookup_field="id"
         )
 
     class Meta:

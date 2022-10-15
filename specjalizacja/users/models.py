@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import (
     CharField,
@@ -45,19 +46,27 @@ class User(AbstractUser):
 
 
 class Friend(models.Model):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     from_user = models.ForeignKey(User, related_name="from_user", on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, related_name="to_user", on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse("api:friend-detail", kwargs={"id": self.id})
 
-    def validate_unique(self):
-        if Friend.objects.filter("from_user" == self.from_user) and \
-           Friend.objects.filter("to_user" == self.to_user) or \
-           Friend.objects.filter("to_user" == self.from_user) and Friend.objects.filter("from_user" == self.to_user):
+    def validate_unique(self, *args, **kwargs):
+        super().validate_unique(*args, **kwargs)
+        if Friend.objects.filter(from_user=self.from_user) and \
+           Friend.objects.filter(to_user=self.to_user) or \
+           Friend.objects.filter(to_user=self.from_user) and Friend.objects.filter(from_user=self.to_user):
+            raise ValidationError(
+                message="cannot add the same user as a friend twice :/"
+            )
 
-            print("testing")
+        if self.from_user == self.to_user:
+            raise ValidationError(
+                message="hopefully you are not bipolar, because you cannot add yourself"
+            )
 
     def save(self, *args, **kwargs):
-        super().validate_unique()
+        self.validate_unique(*args, **kwargs)
         super().save(*args, **kwargs)
