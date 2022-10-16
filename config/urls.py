@@ -27,11 +27,6 @@ urlpatterns = [
     # API base url
     path(settings.ADMIN_URL, admin.site.urls),
     path("api/", include("config.api_router")),
-    # Created apps
-    path("users/", include("specjalizacja.users.urls", namespace="users")),
-    # path("images/", include("specjalizacja.images.urls", namespace="images")),
-    # path("posts/", include("specjalizacja.posts.urls", namespace="posts")),
-    # DRF auth token
     path("auth-token/", obtain_auth_token),
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
     path(

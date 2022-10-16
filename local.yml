@@ -62,16 +62,13 @@ services:
 
   nginx-proxy:
     image: jwilder/nginx-proxy:alpine
-    environment:
-      - VIRTUAL_HOST=dev.local
     container_name: nginx-proxy
     ports:
       - "80:80"
       - "443:443"
     volumes:
-    - /var/run/docker.sock:/tmp/docker.sock:ro
-    - ./certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
     restart: always
     depends_on:
       - django
-      - postgres
