@@ -1,14 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import Navigation from "./components/navbar"
 
+import './App.css';
+//import {BrowserRouter as Router , Route} from "react-router-dom";
+import Navigation from './components/navbar'
+import Login from './pages/login'
 function App() {
   return (
-    <div className="App">
-      <Navigation>
-        <h1>jd</h1>
-      </Navigation>
-    </div>
+      <Login></Login>
+
   );
 }
 
