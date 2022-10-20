@@ -90,3 +90,5 @@ STATIC_URL = f"https://{aws_s3_domain}/static/"
 # ------------------------------------------------------------------------------
 DEFAULT_FILE_STORAGE = "specjalizacja.utils.storages.MediaRootS3Boto3Storage"
 MEDIA_URL = f"https://{aws_s3_domain}/media/"
+
+CORS_ORIGIN_ALLOW_ALL = True
