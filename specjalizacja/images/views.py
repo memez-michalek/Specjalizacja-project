@@ -8,6 +8,7 @@ from .serializers import ImageDetailSerializer
 
 # Create your views here.
 class ImageDetailViewset(
+    mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
     mixins.CreateModelMixin,
     mixins.UpdateModelMixin,

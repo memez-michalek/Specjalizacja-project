@@ -6,7 +6,6 @@ import MainCard from '../components/main-card'
 function Main(){
     const [data, setData] = React.useState([])
 
-
     useEffect(()=>{
         fetch('http://localhost:8000/api/posts/')
         .then(res => res.json())
@@ -22,7 +21,9 @@ function Main(){
         <div>
             <Navbar></Navbar>
             {data.map(post=>(
+                <div>
                 <MainCard props={post}></MainCard>
+                </div>
             ))}
         </div>
     )
