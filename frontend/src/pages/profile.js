@@ -2,6 +2,7 @@ import react from 'react';
 import {useEffect} from "react"
 import { useState } from 'react';
 import axios from 'axios'
+import Navbar from "../components/navbar"
 
 export default function Profile(){
     let [user, setUser] = useState(Object)
@@ -25,6 +26,7 @@ export default function Profile(){
     {console.log(user)}
     return(
         <div>
+            <Navbar></Navbar>
             <img src={user.profile_picture}/>
             <h1>{user.name}</h1>
             <h1>{user.username}</h1>

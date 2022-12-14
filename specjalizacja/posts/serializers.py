@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from specjalizacja.communities.models import Community
 from specjalizacja.images.models import Image
 from specjalizacja.users.models import User
 
@@ -17,7 +18,11 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         queryset=User.objects.all(),
         lookup_field="id"
         )
+    community = serializers.HyperlinkedRelatedField(
+        view_name="api:community-detail",
+        queryset=Community.objects.all,
+    )
 
     class Meta:
         model = Post
-        fields = ["id", "title", "description", "images", "user", "created"]
+        fields = ["id", "title", "description", "images", "user", "created", "community"]

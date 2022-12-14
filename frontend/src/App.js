@@ -5,6 +5,7 @@ import Login from './pages/login'
 import Register from './pages/register'
 import Profile from './pages/profile'
 import Main from './pages/main'
+import Community from './pages/community'
 import {Routes, Route} from "react-router-dom";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/register" element={<Register/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/profiles/*" element={<Profile/>}></Route>
+        <Route path="/community/*" element={<Community/>}></Route>
      </Routes>
   );
 }
