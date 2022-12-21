@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 
 
-export function LoadCommunity(props){
+function LoadCommunity(props){
     let [community, setCommunity] = useState(Object)
 
     useEffect(() => {
@@ -26,8 +26,8 @@ export function LoadCommunity(props){
 
     return(
         <div>
-            {console.log(community)}
             <Link to={"community/" + community.id}>Uploaded to {community.name}</Link>
         </div>
     )
 }
+export {LoadCommunity}

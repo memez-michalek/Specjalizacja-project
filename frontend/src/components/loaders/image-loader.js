@@ -5,7 +5,6 @@ import axios from "axios";
 
 export function ImageLoader(props){
     let [images, setImages] = useState([]);
-
     useEffect(() => {
         async function getImage (id) {
           let imageBlob
@@ -18,7 +17,7 @@ export function ImageLoader(props){
         }
         async function getImages () {
           const imageArray = []
-          for (const id of props.props.images) {
+          for (const id of props.images) {
             imageArray.push(await getImage(id))
           }
           setImages(imageArray)
@@ -26,8 +25,8 @@ export function ImageLoader(props){
         //stack  overflow
 
         getImages()
-      }, [props.props.images])
+      }, [])
       return images.map((img) => {
-        return <img width="500" height="500" src={img} />
+        return <img width={props.width} height={props.height} src={img} />
       })
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from "react"
 import Navbar from "../components/navbar"
-import MainCard from '../components/main-card'
+import MainCard from '../components/card'
 
 function Main(){
     const [data, setData] = React.useState([])

@@ -3,16 +3,16 @@ import React from 'react'
 import { useEffect } from "react";
 import { useState } from "react";
 import Typography from "react";
-import {ImageLoader} from "./loaders/post-image-loader";
+import {ImageLoader} from "./loaders/image-loader";
 import {UserLoader} from "./loaders/post-user-loader";
 import {LoadCommunity} from "./loaders/post-community-loader";
+import { Link } from 'react-router-dom';
+
 
 function MainCard(props){
-
     return(
         <Card>
-
-            <ImageLoader props={props.props}></ImageLoader>
+            <ImageLoader images={props.props.images} width="500" height="500"></ImageLoader>
 
             <Card.Body>
                 <Card.Title>{props.props.title}</Card.Title>

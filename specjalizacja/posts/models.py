@@ -20,9 +20,9 @@ class Post(models.Model):
         _("post description"), max_length=1024, blank=True, null=True
     )
     images = models.ManyToManyField(Image, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")
     created = models.DateTimeField(editable=False, blank=True, null=True)
-    community = models.ForeignKey(Community, null=True, on_delete=models.CASCADE)
+    community = models.ForeignKey(Community, null=True, on_delete=models.CASCADE, related_name="community")
 
     def save(self, *args, **kwargs):
         if not self.title:
