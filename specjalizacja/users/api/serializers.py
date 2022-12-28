@@ -6,10 +6,17 @@ from specjalizacja.users.models import Friend
 User = get_user_model()
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    friends = serializers.HyperlinkedRelatedField(
+        view_name="api:user-detail",
+        queryset=User.objects.all(),
+        lookup_field="id",
+        many=True,
+        )
+
     class Meta:
         model = User
-        fields = ["id", "username", "name", "url", "profile_picture"]
+        fields = ["id", "username", "name", "url", "profile_picture", "friends"]
 
         extra_kwargs = {
             "url": {"view_name": "api:user-detail", "lookup_field": "id"}

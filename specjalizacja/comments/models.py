@@ -12,7 +12,7 @@ from specjalizacja.users.models import User
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE, related_name="comments")
     text = models.CharField(_("comment text"), max_length=512, blank=False)
     created = models.DateTimeField(editable=False, blank=True, null=True)
 

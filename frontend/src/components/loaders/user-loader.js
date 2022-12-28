@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from "../rounded-profile-picture.module.css"
 
 export function UserLoader(props){
-    let [user, setUser] = useState(Object);
-
+    let [user, setUser] = useState({});
     useEffect(() =>{
         async function get_user(id){
             let user;
@@ -18,12 +17,12 @@ export function UserLoader(props){
             }
             setUser(user)
         }
-        get_user(props.props);
-    }, [props.props])
+        get_user(props.user);
+    }, [])
 
     return(
         <div>
-        <Link to={"profiles/" + user.id}><img className={styles.profilepicture} src={user.profile_picture}></img></Link>
+        <Link to={"/profiles/" + user.id}><img className={styles.profilepicture} src={user.profile_picture}></img></Link>
         </div>
     )
 
