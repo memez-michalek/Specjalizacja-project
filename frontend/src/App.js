@@ -11,7 +11,7 @@ import { createContext } from 'react';
 import {ContextProvider} from './components/sessionContext'
 import {useState} from "react"
 import Logout from "./pages/logout"
-import PostForm from './pages/uploadPost';
+import PostForm from './forms/uploadPostForm';
 
 function App() {
 

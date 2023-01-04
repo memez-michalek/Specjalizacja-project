@@ -25,7 +25,7 @@ export default function PostForm (props) {
   const handleFileChange = (event) => {
     setFormData({
       ...formData,
-      file: event.target.files[0],
+      file: [...event.target.files],
     });
   };
 
@@ -37,22 +37,23 @@ export default function PostForm (props) {
     try {
       const imageData = new FormData();
       const postData = new FormData();
-      console.log(formData);
-      console.log(formData.file);
-      imageData.append('image', formData.file);
+
+      for(let img of formData.file){
+        imageData.append('image', img);
+      }
       axios.defaults.headers.common['Authorization'] = 'Token ' + context.key;
       let response = await axios.post('http://localhost:8000/api/images/', imageData);
-      console.log(imageData)
-      console.log(response.data);
-      postData.append('images', response.data)
+
+      for(let img of response.data){
+        postData.append('images', img);
+      }
       postData.append('title', formData.title)
       postData.append('description', formData.content)
       postData.append('community', state.community)
       postData.append('user', context.username)
 
       response = await axios.post('http://localhost:8000/api/posts/', postData );
-      console.log(response.data)
-
+      navigate("/")
     } catch (error) {
       setError(error.message);
       console.log(error)
@@ -63,9 +64,7 @@ export default function PostForm (props) {
 
   return (
     <div>
-
     <form onSubmit={handleSubmit}>
-      {error && <p>{error}</p>}
       <label>
         Title:
         <input
@@ -87,7 +86,6 @@ export default function PostForm (props) {
       <br />
       <label>
         File:
-        {console.log(formData)}
         <input type="file" name="file" onChange={handleFileChange} multiple/>
       </label>
       <br />

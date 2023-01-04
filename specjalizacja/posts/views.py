@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from specjalizacja.communities.models import Community
+from specjalizacja.images.models import Image
 from specjalizacja.users.models import User
 from specjalizacja.utils.permissions import IsOwnerOrReadOnly
 
@@ -30,17 +31,16 @@ class PostViewset(
         community = Community.objects.get(
             id=request.data.get('community')
             )
-        images = request.data.get('images')
+        image_ids = request.data.getlist('images')
+        images = Image.objects.filter(id__in=image_ids)
 
         try:
             post = Post.objects.create(
                 title=request.data.get('title'),
                 description=request.data.get('description'),
                 user=user, community=community)
-            print(post.user.username)
-            post.images.add(images)
-            print(post)
-            return Response(status=status.HTTP_201_CREATED)
+            post.images.set(images)
+            return Response({"Success": "Post added successfully"}, status=status.HTTP_201_CREATED)
 
         except Exception as e:
             return Response(data=e, status=status.HTTP_400_BAD_REQUEST)

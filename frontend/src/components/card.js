@@ -3,8 +3,8 @@ import React from 'react'
 import {ImageLoader} from "./loaders/image-loader";
 import {UserLoader} from "./loaders/user-loader";
 import {LoadCommunity} from "./loaders/post-community-loader";
-import {CommentLoader} from "./loaders/comment-loader";
-
+import {CreateComment} from "../forms/uploadCommentForm"
+import {CommentLoader} from "./loaders/comment-loader"
 
 function MainCard(props){
     return(
@@ -15,6 +15,7 @@ function MainCard(props){
             <Card.Body>
                 <Card.Title>{props.props.title}</Card.Title>
                 <Card.Text>{props.props.description}</Card.Text>
+                <CreateComment community={props.props.community}></CreateComment>
                 <CommentLoader posts={props.props.comments}></CommentLoader>
             </Card.Body>
 

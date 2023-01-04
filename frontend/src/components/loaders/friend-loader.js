@@ -26,8 +26,12 @@ export function FriendLoader(props){
     if (friends.length > 0){
     return (
         <div>
+            {console.log(friends)}
             {friends && friends.map((friend)=>(
+                <div>
                 <UserLoader user={friend}></UserLoader>
+                {console.log(friend)}
+                </div>
             ))}
         </div>
     )
