@@ -21,7 +21,8 @@ const Main = () =>{
     }, [])
 
     console.log(typeof(context))
-    if (typeof(context) !== "string") {
+    console.log(context)
+    if (typeof(context.key) !== "string" || context.key ==="") {
         {console.log(context)}
         return (<div><p>Please log in or register to view this content.</p>
         <Link to="/login">Please log in</Link>

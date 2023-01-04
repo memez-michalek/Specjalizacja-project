@@ -11,6 +11,7 @@ import { createContext } from 'react';
 import {ContextProvider} from './components/sessionContext'
 import {useState} from "react"
 import Logout from "./pages/logout"
+import PostForm from './pages/uploadPost';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register/>}></Route>
         <Route path="/login" element={<LoginForm/>}></Route>
         <Route path="/logout" element={<Logout/>}></Route>
+        <Route path="/upload" element={<PostForm/>}></Route>
         <Route path="/profiles/*" element={<Profile/>}></Route>
         <Route path="/community/*" element={<Community/>}></Route>
      </Routes>

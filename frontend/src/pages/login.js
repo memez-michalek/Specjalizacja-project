@@ -27,7 +27,7 @@ const LoginForm = () => {
     setIsLoading(true);
     try {
       const response = await axios.post('http://localhost:8000/api/dj-rest-auth/login/', formData);
-      updateContext(response.data.key)
+      updateContext({"key" : response.data.key, "username" : formData.username})
       console.log(context)
       setIsLoading(false);
       navigate("/")
