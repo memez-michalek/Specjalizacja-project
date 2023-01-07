@@ -41,7 +41,7 @@ export default function Community(){
             <button
                 title="Done"
                 onClick={() => {
-                    navigate("/upload", { state : {community: data.id}})
+                    navigate("/upload_post", { state : {community: data.id}})
 
         }}>Add Post</button>
 

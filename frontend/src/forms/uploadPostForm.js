@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import {Context} from "../components/sessionContext"
 import { useLocation, useNavigate } from 'react-router-dom';
+import { imageUploader } from '../components/uploaders/image-uploader';
 
 export default function PostForm (props) {
   const [formData, setFormData] = useState({
@@ -35,25 +36,26 @@ export default function PostForm (props) {
     setError('');
 
     try {
-      const imageData = new FormData();
       const postData = new FormData();
-
-      for(let img of formData.file){
-        imageData.append('image', img);
-      }
-      axios.defaults.headers.common['Authorization'] = 'Token ' + context.key;
-      let response = await axios.post('http://localhost:8000/api/images/', imageData);
-
-      for(let img of response.data){
-        postData.append('images', img);
-      }
       postData.append('title', formData.title)
       postData.append('description', formData.content)
       postData.append('community', state.community)
       postData.append('user', context.username)
-
-      response = await axios.post('http://localhost:8000/api/posts/', postData );
-      navigate("/")
+      imageUploader(formData.file, context.key).then(res=>{
+        for(let img of res){
+          postData.append('images', img);
+        }
+      }).then(()=>{
+        fetch('http://localhost:8000/api/posts/',{
+          method: 'POST',
+          headers: {
+            'Authorization': 'Token ' + context.key
+          },
+          body: PostForm,
+          credentials: 'include'
+        })}).then(()=>{
+          navigate('/')
+        })
     } catch (error) {
       setError(error.message);
       console.log(error)
