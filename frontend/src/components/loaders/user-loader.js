@@ -6,6 +6,7 @@ import styles from "../rounded-profile-picture.module.css"
 
 export function UserLoader(props){
     let [user, setUser] = useState({});
+    console.log(props)
     useEffect(() =>{
         async function get_user(id){
             let user;

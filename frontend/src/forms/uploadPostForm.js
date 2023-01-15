@@ -35,34 +35,43 @@ export default function PostForm (props) {
     setIsLoading(true);
     setError('');
 
-    try {
       const postData = new FormData();
       postData.append('title', formData.title)
       postData.append('description', formData.content)
       postData.append('community', state.community)
       postData.append('user', context.username)
+      console.log(formData);
+      if (formData.file){
       imageUploader(formData.file, context.key).then(res=>{
         for(let img of res){
           postData.append('images', img);
         }
-      }).then(()=>{
+
+      }).catch(error=>{console.log(error)}).then(()=>{
+        try{
         fetch('http://localhost:8000/api/posts/',{
           method: 'POST',
           headers: {
-            'Authorization': 'Token ' + context.key
+            'Authorization': 'Token ' + context.key,
           },
-          body: PostForm,
-          credentials: 'include'
-        })}).then(()=>{
+          body: postData,
+
+
+
+        }).then(()=>{
           navigate('/')
         })
-    } catch (error) {
-      setError(error.message);
-      console.log(error)
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
+      }catch(e){
+          console.error(e)
+        } finally {
+          setIsLoading(false);
+        }
+
+
+
+      })
+  }}
 
   return (
     <div>
@@ -95,4 +104,4 @@ export default function PostForm (props) {
       </form>
       </div>)
 
-    }
+  }

@@ -39,4 +39,4 @@ class FriendSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Friend
-        fields = ["to_user", "from_user"]
+        fields = ["id", "to_user", "from_user"]

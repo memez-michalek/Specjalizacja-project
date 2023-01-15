@@ -2,7 +2,6 @@ import uuid
 
 from django.db import models
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from specjalizacja.communities.models import Community
@@ -21,15 +20,17 @@ class Post(models.Model):
     )
     images = models.ManyToManyField(Image, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")
-    created = models.DateTimeField(editable=False, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
     community = models.ForeignKey(Community, null=True, on_delete=models.CASCADE, related_name="community")
 
-    def save(self, *args, **kwargs):
-        if not self.title:
+    '''def save(self, *args, **kwargs):
+        if not self.id:
             self.created = timezone.now()
-
-        super().save(*args, **kwargs)
-
+        # This code only happens if the objects is
+        # not in the database yet. Otherwise it would
+        # have pk
+        super(Post, self).save(*args, **kwargs)
+    '''
     def __str__(self):
         return self.title
 

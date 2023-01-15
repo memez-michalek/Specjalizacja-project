@@ -1,5 +1,6 @@
 # from django.shortcuts import render
-from rest_framework import mixins, status, viewsets
+
+from rest_framework import filters, mixins, status, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
@@ -23,6 +24,8 @@ class PostViewset(
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    ordering_fields = ['created']
+    filter_backends = [filters.OrderingFilter]
 
     def create(self, request, *args, **kwargs):
         user = User.objects.get(
@@ -33,8 +36,11 @@ class PostViewset(
             )
         image_ids = request.data.getlist('images')
         images = Image.objects.filter(id__in=image_ids)
-
+        print(image_ids)
+        print(images)
         try:
+            print(image_ids)
+            print(images)
             post = Post.objects.create(
                 title=request.data.get('title'),
                 description=request.data.get('description'),

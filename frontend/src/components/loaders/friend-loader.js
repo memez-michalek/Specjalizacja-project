@@ -29,7 +29,8 @@ export function FriendLoader(props){
             {console.log(friends)}
             {friends && friends.map((friend)=>(
                 <div>
-                <UserLoader user={friend}></UserLoader>
+                    {console.log("http://localhost:8000/api/users/" +friend.id+"/")}
+                <UserLoader user={"http://localhost:8000/api/users/" +friend.id+"/"}></UserLoader>
                 {console.log(friend)}
                 </div>
             ))}
