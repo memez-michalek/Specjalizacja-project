@@ -19,7 +19,7 @@ export default function Profile(){
             let userData
           try {
             let data = id.split('/')
-            axios.defaults.headers.common['Authorization'] = 'Token ' + context.key
+            //axios.defaults.headers.common['Authorization'] = 'Token ' + context.key
             userData = (await axios.get(`https://dev.local/api/users/${data[data.length - 1]}/`, { responseType: 'json' })).data
           } catch (err) {
             return null

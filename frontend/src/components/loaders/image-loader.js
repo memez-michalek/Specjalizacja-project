@@ -5,6 +5,7 @@ import axios from "axios";
 
 export function ImageLoader(props){
     let [images, setImages] = useState([]);
+    console.log(props)
     useEffect(() => {
         async function getImage (id) {
           let imageBlob

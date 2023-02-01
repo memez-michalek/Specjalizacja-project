@@ -14,6 +14,7 @@ import Logout from "./pages/logout"
 import PostForm from './forms/uploadPostForm';
 import CommunityForm from './forms/uploadCommunityForm';
 import Post from "./pages/post"
+import UpdatePost from "./forms/updatePostForm";
 
 function App() {
 

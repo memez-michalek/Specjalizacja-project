@@ -9,22 +9,30 @@ import Menu from '@mui/material/Menu';
 import MainCard from "../components/card"
 import MenuItem from '@mui/material/MenuItem';
 import axios from "axios";
+import UpdatePost from "../forms/updatePostForm";
+import GetIds from "../helpers/idGetter";
 
 export default function Post(){
-    const [data ,setData] = useState({})
+    const [data ,setData] = useState([])
     const [context, setContext] = useContext(Context)
     const id = window.location.pathname.split('/').pop()
-    console.log(id)
+
+    const [isLoading, changeLoadingState] = useState(true);
     const [anchor, setAnchor] = useState(null)
     const isOpen = Boolean(anchor)
+    const [isEdited, changeEditState] = useState(false)
 
     const onClick = (event) =>{
         setAnchor(event.currentTarget)
     }
 
-    const setClose = () =>{
-        setAnchor(null)
+    const editPost = () =>{
+      setAnchor(null)
+      changeEditState(true)
+
+
     }
+
 
     useEffect(()=>{
         async function getData(id){
@@ -32,10 +40,8 @@ export default function Post(){
         axios.defaults.headers.common = "Token " + id
         try{
             const response = await axios.get('http://localhost:8000/api/posts/' + id + "/")
-
-            console.log(response)
-            console.log(response.data)
             setData(response.data)
+            changeLoadingState(false)
         }catch(e){
             console.error("found error ", e)
         }
@@ -43,6 +49,26 @@ export default function Post(){
         }
         getData(id)
     }, [id])
+
+
+
+
+    if(!isLoading){
+      console.log(data.images)
+      const image_ids = GetIds(data.images)
+      console.log(image_ids)
+
+    if(isEdited){
+      return(
+        <div>
+          {console.log(context.key)}
+          <UpdatePost image_ids={image_ids} id={id} title={data.title} files={data.images} key={context.key}></UpdatePost>
+        </div>
+      )
+
+
+
+    }else{
 
     return(
         <div>
@@ -62,7 +88,7 @@ export default function Post(){
         aria-labelledby="demo-positioned-button"
         anchorEl={anchor}
         open={isOpen}
-        onClose={setClose}
+        onClose={editPost}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',
@@ -73,16 +99,18 @@ export default function Post(){
         }}
       >
 
-        <MenuItem onClick={setClose}>Edit post</MenuItem>
+        <MenuItem onClick={editPost}>Edit post</MenuItem>
       </Menu>
     </div>
-    {console.log("dataaaaaaaaaaaaa")}
-    {console.log(data)}
-    {data &&
+
     <div>
-    <MainCard props={data}></MainCard>
+    <MainCard post={data}></MainCard>
     </div>
-    }
+
     </div>
     )
+      }
+  }else{
+    <p>Loading</p>
+  }
 }

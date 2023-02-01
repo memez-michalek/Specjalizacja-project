@@ -27,5 +27,6 @@ class ImageDetailViewset(
         photos = []
         for img in images:
             photo = Image.objects.create(image=img)
-            photos.append(photo.id)
-        return Response(photos, status=status.HTTP_201_CREATED)
+            photos.append(photo)
+
+        return Response(self.serializer_class(photos, many=True).data, status=status.HTTP_201_CREATED)

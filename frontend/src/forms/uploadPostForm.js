@@ -102,6 +102,7 @@ export default function PostForm (props) {
       <br />
       <button type="submit">Upload Post</button>
       </form>
-      </div>)
+      </div>
+      )
 
   }

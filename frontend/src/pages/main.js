@@ -36,7 +36,7 @@ const Main = () =>{
             {console.log(context)}
             {data.map(post=>(
                 <div>
-                <MainCard props={post}></MainCard>
+                <MainCard post={post}></MainCard>
                 </div>
             ))}
         </div>
