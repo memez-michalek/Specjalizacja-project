@@ -47,9 +47,9 @@ export default function Community(){
 
 
             {data.background_image ? <ImageLoader images={[data.background_image]}></ImageLoader> : <p>community image</p>}
-            {data.community && data.community.map((post) => (
+            {data.community && data.community.map(post => (
                 <div>
-                    <MainCard props={post} />
+                    <MainCard post={post} />
                 </div>
             ))}
         </div>

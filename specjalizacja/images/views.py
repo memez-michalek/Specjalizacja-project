@@ -23,6 +23,7 @@ class ImageDetailViewset(
     parser_classes = [MultiPartParser, FormParser]
 
     def create(self, request):
+        print(request.user)
         images = request.FILES.getlist('image')
         photos = []
         for img in images:

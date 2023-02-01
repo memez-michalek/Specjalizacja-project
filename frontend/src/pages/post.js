@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import axios from "axios";
 import UpdatePost from "../forms/updatePostForm";
 import GetIds from "../helpers/idGetter";
+import { useNavigate } from "react-router-dom";
 
 export default function Post(){
     const [data ,setData] = useState([])
@@ -21,23 +22,53 @@ export default function Post(){
     const [anchor, setAnchor] = useState(null)
     const isOpen = Boolean(anchor)
     const [isEdited, changeEditState] = useState(false)
+    const navigate = useNavigate("/")
 
     const onClick = (event) =>{
+        event.preventDefault()
         setAnchor(event.currentTarget)
     }
 
-    const editPost = () =>{
+    const editPost = (event) =>{
+      event.preventDefault()
       setAnchor(null)
       changeEditState(true)
-
-
     }
 
+    const deletePost = async (event)=>{
+      event.preventDefault()
+      console.log(context.key)
+      console.log(id)
+      try{
+      fetch(`http://localhost:8000/api/posts/${id}/`,{
+        method: "DELETE",
+        headers: {
+          "Authorization": "Token " + context.key
+        }
+      })
+      .then(()=>{
+        navigate("/")
+      })
+      }catch(e){
+        console.error(e)
+      }
+      /*
+      try{
+      const response = await axios.delete(`http://localhost:8000/api/posts/${id}/`)
+      if(response.status === 200){
+        navigate("/")
+        // axios.defaults.headers.common = `Token ${context.key}`
+      }
+      }catch(e){
+        console.error("error has been found", e)
+      }
+      */
+    }
 
     useEffect(()=>{
         async function getData(id){
 
-        axios.defaults.headers.common = "Token " + id
+        axios.defaults.headers.common = `Token ${context.key}`
         try{
             const response = await axios.get('http://localhost:8000/api/posts/' + id + "/")
             setData(response.data)
@@ -100,6 +131,7 @@ export default function Post(){
       >
 
         <MenuItem onClick={editPost}>Edit post</MenuItem>
+        <MenuItem onClick={deletePost}>Delete post</MenuItem>
       </Menu>
     </div>
 

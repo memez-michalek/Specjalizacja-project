@@ -3,7 +3,6 @@ import {Context} from "../components/sessionContext"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ImageUpdate } from '../components/updaters/image-updater';
 import { imageUploader } from "../components/uploaders/image-uploader";
-import UploadFiles from './fileUploadForm';
 import Dropzone from "react-dropzone";
 
 export default  function UpdatePost (props) {

@@ -44,7 +44,8 @@ export default function PostForm (props) {
       if (formData.file){
       imageUploader(formData.file, context.key).then(res=>{
         for(let img of res){
-          postData.append('images', img);
+          console.log(img.id)
+          postData.append('images', img.id);
         }
 
       }).catch(error=>{console.log(error)}).then(()=>{

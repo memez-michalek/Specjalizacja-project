@@ -36,11 +36,7 @@ class PostViewset(
             )
         image_ids = request.data.getlist('images')
         images = Image.objects.filter(id__in=image_ids)
-        print(image_ids)
-        print(images)
         try:
-            print(image_ids)
-            print(images)
             post = Post.objects.create(
                 title=request.data.get('title'),
                 description=request.data.get('description'),
