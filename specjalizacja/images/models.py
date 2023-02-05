@@ -12,6 +12,7 @@ class Image(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
     )
     image = models.ImageField(_("image"), blank=True, upload_to="images/")
+    is_default = models.BooleanField(_("is_default"), default=False)
 
     def get_absolute_url(self):
         return reverse("api:image-detail", kwargs={"id": self.id})

@@ -5,12 +5,19 @@ import {ImageLoader} from '../components/loaders/image-loader';
 import Navbar from '../components/navbar';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
+import UpdateCommunity from '../forms/updateCommunityForm';
 
 export default function Community(){
     let splitted = window.location.pathname.split('/');
     let url = splitted[splitted.length - 1];
     let [data, setData] = useState({})
     let navigate = useNavigate()
+    const [isEdited, changeIsEdited] = useState(false)
+
+    const editCommunity = (e) =>{
+        e.preventDefault()
+        changeIsEdited(true)
+    }
 
     async function loadCommunity(id){
         let values;
@@ -28,6 +35,13 @@ export default function Community(){
         loadCommunity(url)
     }, [])
 
+
+
+    if(isEdited){
+        return(
+            <UpdateCommunity community={data}></UpdateCommunity>
+        )
+    }else{
     return (
         <div>
             <Navbar></Navbar>
@@ -37,7 +51,7 @@ export default function Community(){
             <Link to={{pathname: "/upload",  state: { community: data.id}}}>Add post</Link>
     */}
 
-
+            <button onClick={editCommunity}>Edit community</button>
             <button
                 title="Done"
                 onClick={() => {
@@ -54,4 +68,5 @@ export default function Community(){
             ))}
         </div>
       );
+        }
     }

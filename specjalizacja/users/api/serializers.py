@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
+from specjalizacja.images.models import Image
 from specjalizacja.users.models import Friend
 
 User = get_user_model()
@@ -13,6 +14,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         lookup_field="id",
         many=True,
         )
+    profile_picture = serializers.HyperlinkedRelatedField(
+        view_name="api:image-detail",
+        queryset=Image.objects.all(),
+    )
 
     class Meta:
         model = User

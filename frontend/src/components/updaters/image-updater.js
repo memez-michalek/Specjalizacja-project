@@ -13,6 +13,7 @@ export function ImageUpdate(files, ids, authorization){
 
     console.log(files)
     console.log(authorization)
+    console.log(ids)
     try{
       // axios.defaults.headers.common["Authorization"] = "Token " + authorization
       //axios.defaults.headers.common["Authorization"] = `Token ${authorization}`;

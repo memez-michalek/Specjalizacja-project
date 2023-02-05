@@ -17,12 +17,12 @@ class CommunityViewset(viewsets.ModelViewSet):
         background_image_id = request.data.get('background_image')
         print(background_image_id)
         background_image = Image.objects.get(id=background_image_id)
-
         name = request.data.get('name')
         bio = request.data.get('bio')
+        owner = request.user
 
         try:
-            Community.objects.create(name=name, bio=bio, background_image=background_image)
+            Community.objects.create(name=name, bio=bio, owner=owner, background_image=background_image)
             return Response({"Success": "Community created"}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"Error": e}, status=status.HTTP_400_BAD_REQUEST)

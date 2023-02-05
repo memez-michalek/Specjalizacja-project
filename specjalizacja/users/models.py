@@ -3,15 +3,13 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import (
-    CharField,
-    ImageField,
-    ManyToManyField,
-    TextField,
-    UUIDField,
-)
+from django.db.models import CharField, ManyToManyField, TextField, UUIDField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+from specjalizacja.images.models import Image
 
 
 class User(AbstractUser):
@@ -25,8 +23,11 @@ class User(AbstractUser):
     #: First and last name do not cover name patterns around the globe
     name = CharField(_("Name of User"), blank=True, max_length=255)
     quote = TextField(_("Users bio"), blank=True)
-    profile_picture = ImageField(
-        _("Profile picture"), blank=True, upload_to="profile_pictures/"
+    profile_picture = models.ForeignKey(
+        Image,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="user_picture"
     )
     friends = ManyToManyField("User", blank=True)
 
@@ -70,3 +71,9 @@ class Friend(models.Model):
     def save(self, *args, **kwargs):
         self.validate_unique()
         super().save(*args, **kwargs)
+
+
+@receiver(pre_save, sender=User)
+def set_default_image(sender, instance, **kwargs):
+    if instance.profile_picture is None:
+        instance.profile_picture = Image.objects.get(is_default=True)

@@ -42,8 +42,7 @@ export default function CommunityForm(){
         CommunityForm.append('bio', formData.bio)
         try{
             imageUploader(formData.file, context.key).then(res=>{
-              console.log(res)
-              CommunityForm.append('background_image', res)
+              CommunityForm.append('background_image', res[0].id)
             }).then(()=>{
               fetch('http://localhost:8000/api/community/',{
                 method: 'POST',
@@ -53,7 +52,7 @@ export default function CommunityForm(){
                 body: CommunityForm,
                 credentials: 'include'
               })
-              navigate('/')
+
             }).then(res=>{
               console.log(res)
             })
@@ -62,6 +61,7 @@ export default function CommunityForm(){
             console.debug(err)
         }finally {
             setIsLoading(false);
+            navigate("/")
           }
     }
 

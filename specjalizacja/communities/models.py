@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from specjalizacja.images.models import Image
+from specjalizacja.users.models import User
 
 
 class Community(models.Model):
@@ -14,6 +15,7 @@ class Community(models.Model):
     bio = models.CharField(_("community bio"), max_length=1024, blank=True, null=True)
     background_image = models.ForeignKey(Image, related_name="community_image", on_delete=models.CASCADE)
     created = models.DateTimeField(editable=False, blank=True, null=True)
+    owner = models.ForeignKey(User, related_name="community_owner", on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.name)
