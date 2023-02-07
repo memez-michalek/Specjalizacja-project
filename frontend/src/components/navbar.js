@@ -21,6 +21,7 @@ function Navigation() {
                   <Nav.Link><Link to="/register">Register</Link></Nav.Link>
                   <Nav.Link><Link to="/logout">Logout</Link></Nav.Link>
                   <Nav.Link><Link to="/upload_community">Create Community</Link></Nav.Link>
+                  <Nav.Link><Link to="/communities">Explore Communities</Link></Nav.Link>
                   <Nav.Link>You are logged in as {context.username}</Nav.Link>
                 </Nav>
               </Navbar.Collapse>

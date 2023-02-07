@@ -13,6 +13,7 @@ import {useState} from "react"
 import Logout from "./pages/logout"
 import PostForm from './forms/uploadPostForm';
 import CommunityForm from './forms/uploadCommunityForm';
+import DiscoverCommunity from "./pages/discoverCommunities"
 import Post from "./pages/post"
 import UpdatePost from "./forms/updatePostForm";
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/register" element={<Register/>}></Route>
         <Route path="/login" element={<LoginForm/>}></Route>
         <Route path="/logout" element={<Logout/>}></Route>
+        <Route path="/communities" element={<DiscoverCommunity/>}></Route>
         <Route path="/upload_post" element={<PostForm/>}></Route>
         <Route path="/upload_community" element={<CommunityForm/>}></Route>
         <Route path="/post/*" element={<Post/>}></Route>

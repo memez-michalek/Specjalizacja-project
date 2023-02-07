@@ -28,6 +28,7 @@ export function CommentLoader(props){
             <p>comments</p>
             {comments && comments.map((comment) =>(
                 <div>
+
                 <p>{comment.text}</p>
                 <UserLoader user={comment.user}></UserLoader>
                 </div>
