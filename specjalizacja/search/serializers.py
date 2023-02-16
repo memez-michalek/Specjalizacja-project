@@ -1,27 +1,24 @@
 from rest_framework import serializers
 
 from specjalizacja.communities.models import Community
-
-'''from specjalizacja.posts.models import Post
+from specjalizacja.communities.serializers import CommunitySerializer
+from specjalizacja.posts.models import Post
+from specjalizacja.posts.serializers import PostSerializer
+from specjalizacja.users.api.serializers import UserSerializer
 from specjalizacja.users.models import User
-'''
 
 
 class SearchSerializer(serializers.Serializer):
-    community_id = serializers.UUIDField()
-    community_name = serializers.CharField()
-    community_bio = serializers.CharField()
-    community_background_image = serializers.UUIDField()
-    community_created = serializers.DateTimeField()
-    community_owner = serializers.UUIDField()
-
-    def to_respresentation(self, instance):
+    def to_representation(self, instance):
+        data = {}
         if isinstance(instance, Community):
-            return {
-                'id': instance.id,
-                'name': instance.name,
-                'bio': instance.bio,
-                'background_image': instance.background_image,
-                'created': instance.created,
-                'owner': instance.owner,
-            }
+            data.update(CommunitySerializer(instance, context=self.context).data)
+            data['type'] = 'community'
+        elif isinstance(instance, User):
+            data.update(UserSerializer(instance, context=self.context).data)
+            data['type'] = 'user'
+        elif isinstance(instance, Post):
+            data.update(PostSerializer(instance, context=self.context).data)
+            data['type'] = 'post'
+
+        return data

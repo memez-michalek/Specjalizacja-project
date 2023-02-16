@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import MainCard from '../components/card';
+import MainCard from '../components/postCard';
 import {ImageLoader} from '../components/loaders/image-loader';
 import Navbar from '../components/navbar';
 import { Link } from 'react-router-dom';

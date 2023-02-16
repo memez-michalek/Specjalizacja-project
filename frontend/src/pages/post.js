@@ -6,7 +6,7 @@ import Navbar from "../components/navbar"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import MainCard from "../components/card"
+import MainCard from "../components/postCard"
 import MenuItem from '@mui/material/MenuItem';
 import axios from "axios";
 import UpdatePost from "../forms/updatePostForm";

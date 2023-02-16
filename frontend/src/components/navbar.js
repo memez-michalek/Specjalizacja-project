@@ -7,9 +7,10 @@ import Component from "react"
 import {Link} from "react-router-dom"
 import {Context} from "./sessionContext"
 import {useContext} from "react"
-
-function Navigation() {
+import SearchForm from "../forms/searchForm"
+function Navigation(props) {
         const [context, setContext] = useContext(Context)
+        console.log(props)
         return (
             <Navbar bg="light" expand="lg">
             <Container>
@@ -22,6 +23,7 @@ function Navigation() {
                   <Nav.Link><Link to="/logout">Logout</Link></Nav.Link>
                   <Nav.Link><Link to="/upload_community">Create Community</Link></Nav.Link>
                   <Nav.Link><Link to="/communities">Explore Communities</Link></Nav.Link>
+                  <SearchForm setSearchData={props.setSearchData}></SearchForm>
                   <Nav.Link>You are logged in as {context.username}</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
